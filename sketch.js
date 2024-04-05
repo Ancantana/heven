@@ -75,3 +75,4 @@ function drawGallery() {
     rect(width - 330, 0, 327, 344);
   }
 }
+
