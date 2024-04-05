@@ -5,7 +5,7 @@ let galleryImages = [];
 let plusButton, downloadButton;
 
 function preload() {
-  bgImage = loadImage('AFTERLIFE.png'); // Make sure the path is correct
+  bgImage = loadImage('AFTERLIFE.png');
 }
 
 function setup() {
@@ -62,6 +62,7 @@ function toggleGallery() {
   galleryImages.forEach(img => {
     if (galleryVisible) {
       img.show();
+      img.position(width - 320, galleryImages.indexOf(img) * 110 + 10);
     } else {
       img.hide();
     }
@@ -72,8 +73,5 @@ function drawGallery() {
   if (galleryVisible) {
     fill(255);
     rect(width - 330, 0, 327, 344);
-    galleryImages.forEach((img, i) => {
-      img.position(width - 320, i * 110 + 10);
-    });
   }
 }
