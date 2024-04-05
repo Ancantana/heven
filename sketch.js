@@ -3,6 +3,8 @@ let textInput;
 let galleryVisible = false;
 let galleryImages = [];
 let plusButton, downloadButton;
+let selectedImage = null;
+let offsetX, offsetY;
 
 function preload() {
   bgImage = loadImage('AFTERLIFE.png');
@@ -62,6 +64,7 @@ function toggleGallery() {
   galleryImages.forEach(img => {
     if (galleryVisible) {
       img.show();
+      img.size(100, 100); // Fit images within the gallery
       img.position(width - 320, galleryImages.indexOf(img) * 110 + 10);
     } else {
       img.hide();
@@ -76,3 +79,34 @@ function drawGallery() {
   }
 }
 
+function mousePressed() {
+  if (dist(mouseX, mouseY, 20, 80) < 15) {
+    toggleGallery();
+  } else {
+    galleryImages.forEach(img => {
+      let imgX = img.position().x;
+      let imgY = img.position().y;
+      let imgW = img.width;
+      let imgH = img.height;
+      if (mouseX >= imgX && mouseX <= imgX + imgW && mouseY >= imgY && mouseY <= imgY + imgH) {
+        selectedImage = img;
+        offsetX = mouseX - imgX;
+        offsetY = mouseY - imgY;
+        img.dragging = true;
+      }
+    });
+  }
+}
+
+function mouseDragged() {
+  if (selectedImage && selectedImage.dragging) {
+    selectedImage.position(mouseX - offsetX, mouseY - offsetY);
+  }
+}
+
+function mouseReleased() {
+  if (selectedImage) {
+    selectedImage.dragging = false;
+    selectedImage = null;
+  }
+}
