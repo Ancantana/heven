@@ -5,6 +5,7 @@ let galleryImages = [];
 let plusButton, downloadButton;
 let selectedImage = null;
 let offsetX, offsetY;
+let dragging = false;
 
 function preload() {
   bgImage = loadImage('AFTERLIFE.png');
@@ -64,8 +65,8 @@ function toggleGallery() {
   galleryImages.forEach(img => {
     if (galleryVisible) {
       img.show();
-      img.size(100, 100); // Fit images within the gallery
-      img.position(width - 320, galleryImages.indexOf(img) * 110 + 10);
+      img.size(80, 80); // Adjusted to fit in the gallery
+      img.position(width - 320, galleryImages.indexOf(img) * 90 + 10);
     } else {
       img.hide();
     }
@@ -92,21 +93,19 @@ function mousePressed() {
         selectedImage = img;
         offsetX = mouseX - imgX;
         offsetY = mouseY - imgY;
-        img.dragging = true;
+        dragging = true;
       }
     });
   }
 }
 
 function mouseDragged() {
-  if (selectedImage && selectedImage.dragging) {
+  if (dragging && selectedImage) {
     selectedImage.position(mouseX - offsetX, mouseY - offsetY);
   }
 }
 
 function mouseReleased() {
-  if (selectedImage) {
-    selectedImage.dragging = false;
-    selectedImage = null;
-  }
+  dragging = false;
+  selectedImage = null;
 }
