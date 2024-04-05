@@ -49,7 +49,7 @@ function draw() {
 }
 
 function initGallery() {
-  let imgUrls = ['original_77f8f96b25a80928f3f31b83d967fd2d.png', 'original_77f8f96b25a80928f3f31b83d967fd2d.png', 'original_77f8f96b25a80928f3f31b83d967fd2d.png'];
+  let imgUrls = ['original_4c5b0b58e719a301686f3adc01789887.png', 'original_4c5b0b58e719a301686f3adc01789887.png', 'original_4c5b0b58e719a301686f3adc01789887.png'];
   imgUrls.forEach(url => {
     let img = createImg(url, 'image');
     img.hide();
