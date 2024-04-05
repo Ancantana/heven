@@ -3,11 +3,9 @@ let textInput;
 let galleryVisible = false;
 let galleryImages = [];
 let plusButton, downloadButton;
-let selectedImage = null;
-let offsetX, offsetY;
 
 function preload() {
-  bgImage = loadImage('AFTERLIFE.png');
+  bgImage = loadImage('AFTERLIFE.png'); // Make sure the path is correct
 }
 
 function setup() {
@@ -61,45 +59,21 @@ function initGallery() {
 
 function toggleGallery() {
   galleryVisible = !galleryVisible;
-}
-
-function drawGallery() {
-  fill(255);
-  rect(width - 330, 0, 327, 344);
-  galleryImages.forEach((img, i) => {
+  galleryImages.forEach(img => {
     if (galleryVisible) {
       img.show();
-      img.position(width - 320, i * 110 + 10);
     } else {
       img.hide();
     }
   });
 }
 
-function mousePressed() {
-  if (dist(mouseX, mouseY, 20, 80) < 15) {
-    toggleGallery();
-  } else {
-    galleryImages.forEach(img => {
-      let imgX = img.position().x;
-      let imgY = img.position().y;
-      let imgW = img.width;
-      let imgH = img.height;
-      if (mouseX >= imgX && mouseX <= imgX + imgW && mouseY >= imgY && mouseY <= imgY + imgH) {
-        selectedImage = img;
-        offsetX = mouseX - imgX;
-        offsetY = mouseY - imgY;
-      }
+function drawGallery() {
+  if (galleryVisible) {
+    fill(255);
+    rect(width - 330, 0, 327, 344);
+    galleryImages.forEach((img, i) => {
+      img.position(width - 320, i * 110 + 10);
     });
   }
-}
-
-function mouseDragged() {
-  if (selectedImage) {
-    selectedImage.position(mouseX - offsetX, mouseY - offsetY);
-  }
-}
-
-function mouseReleased() {
-  selectedImage = null;
 }
